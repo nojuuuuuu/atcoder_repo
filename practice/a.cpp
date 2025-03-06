@@ -2,20 +2,35 @@
 using namespace std;
 
 int main(){
-    int price;
-    cin >> price;
-    int change = 1000 - price;
+    int N;
+    cin >> N;
+    const int Max_N = 100000;
+    const int Max_V = 1000000000;
 
-    vector<int> a = {500, 100, 50, 10, 5, 1};
+    typedef pair<int, int> P;
 
-    int sum = 0;
+    int X[Max_N];
+    int L[Max_N];
 
-    for (int i=0; i<6; i++){
-        int num = change / a[i];
-        sum += num;
-        change -= num*a[i];
+    for(int i=0; i<N; i++){
+        cin >> X[i] >> L[i];
     }
 
-    cout << sum << endl;
+    P ps[Max_N];
+    for(int i=0; i<N; i++){
+        ps[i] = P(X[i] + L[i], X[i] - L[i]);
+    }
+    sort(ps, ps+N);
+    int cur = -Max_V;
+    int ans = 0;
+
+    for(int i=0; i<N; i++){
+        if(cur<=ps[i].second){
+            ans++;
+            cur = ps[i].first;
+        }
+    }
+
+    cout << ans << endl;
     return 0;
 }
