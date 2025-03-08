@@ -1,36 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    int N;
-    cin >> N;
-    const int Max_N = 100000;
-    const int Max_V = 1000000000;
+int main() {
+    string S, T;
+    cin >> S >> T;
 
-    typedef pair<int, int> P;
-
-    int X[Max_N];
-    int L[Max_N];
-
-    for(int i=0; i<N; i++){
-        cin >> X[i] >> L[i];
-    }
-
-    P ps[Max_N];
-    for(int i=0; i<N; i++){
-        ps[i] = P(X[i] + L[i], X[i] - L[i]);
-    }
-    sort(ps, ps+N);
-    int cur = -Max_V;
-    int ans = 0;
-
-    for(int i=0; i<N; i++){
-        if(cur<=ps[i].second){
-            ans++;
-            cur = ps[i].first;
+    string res = "UNRESTORABLE";
+    for (int i = 0; i+T.size() <= S.size(); i++) {
+        bool ok = true;
+        string tmp = S;
+        for (int j = 0; j < T.size(); j++) {
+            if (S[i+j] != '?' && S[i+j] != T[j]) ok = false;
+            tmp[i+j] = T[j];
+        }
+        if (ok) {
+            for (int j = 0; j < tmp.size(); j++) {
+                if (tmp[j] == '?') tmp[j] = 'a';
+            }
+            if (res == "UNRESTORABLE") res = tmp;
+            else res = min(res, tmp);
         }
     }
-
-    cout << ans << endl;
-    return 0;
+    cout << res << endl;
 }
