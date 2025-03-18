@@ -2,16 +2,18 @@
 using namespace std;
 
 int main() {
-    long long X, Y;
-    cin >> X >> Y;
+    const int V[6] = {1, 5, 10, 50, 100, 500};
     
-    int count = 1;
-    long long tmp = X;
-    while(X*2<=Y){
-        X *= 2;
-        count++;
+    int C[6];
+    int A;
+
+    int ans = 0;
+
+    for(int i=5; i>=0; i--){
+        int t = min(A/V[i], C[i]);
+        A -= t*V[i];
+        ans += t;
     }
 
-    cout << count << endl;
-    return 0;
+    cout << ans << endl;
 }
