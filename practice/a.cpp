@@ -2,18 +2,26 @@
 using namespace std;
 
 int main() {
-    const int V[6] = {1, 5, 10, 50, 100, 500};
-    
-    int C[6];
-    int A;
+    int N;
+    int S[N];
+    int T[N];
+
+    vector<pair<int, int>> Z;
+
+    for(int i=0; i<N; i++){
+        Z[i] = {T[i], S[i]};
+    }
+
+    sort(Z.begin(), Z.end());
 
     int ans = 0;
-
-    for(int i=5; i>=0; i--){
-        int t = min(A/V[i], C[i]);
-        A -= t*V[i];
-        ans += t;
+    int t = 0;    
+    for(int i=0; i<N; i++){
+        if(t < Z[i].second){
+            ans++;
+            t = Z[i].first;
+        }
     }
 
     cout << ans << endl;
-}
+}   
