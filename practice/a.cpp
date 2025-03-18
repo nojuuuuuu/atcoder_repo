@@ -1,27 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
+const int Max_N = 2000;
 
-int main() {
+int main()
+{
+    string S[Max_N];
+    string T[Max_N];
     int N;
-    int S[N];
-    int T[N];
 
-    vector<pair<int, int>> Z;
-
-    for(int i=0; i<N; i++){
-        Z[i] = {T[i], S[i]};
-    }
-
-    sort(Z.begin(), Z.end());
-
-    int ans = 0;
-    int t = 0;    
-    for(int i=0; i<N; i++){
-        if(t < Z[i].second){
-            ans++;
-            t = Z[i].first;
+    int a = 0;
+    int b = N -1;
+    while (a<=b)
+    {
+        bool left = false;
+        for (int i = 0; a + i <= b; i++){
+            if(S[a + i] < S[b - i]){
+                left = true;
+                break;
+            } else if (S[a + i] > S[b - i]){
+                left = false;
+                break;
+            }
         }
+
+        if (left) T[a] = S[a];
+        else T[a] = S[b];
+        a++;
+        b--;
     }
 
-    cout << ans << endl;
-}   
+    cout << T << endl;
+}
